@@ -6,7 +6,7 @@ const bjornData = {
 
     attackImgs: [
         "attacke0000.png", "attacke0001.png", "attacke0002.png", "attacke0003.png", "attacke0004.png", "attacke0005.png", "attacke0006.png",
-        "attacke0007.png", "attacke0008.png", "attacke0009.png", "attacke0010.png", "attacke0011.png"
+        "attacke0007.png", "attacke0008.png", "attacke0009.png", "attacke0010.png", "attacke0011.png", "attacke0012.png"
     ],
 
     poseNumber: 0,
@@ -21,7 +21,9 @@ const bjornData = {
 
     y: document.querySelector('#forest').scrollHeight - 100,
 
-    timerId: null
+    timerId: null,
+
+    health: 100
 }
 
 const knightData = {
@@ -47,7 +49,9 @@ const knightData = {
 
     y: document.querySelector('#forest').scrollHeight - 100,
 
-    timerId: null
+    timerId: null,
+
+    health: 100
 }
 
 knightData.x = knightData.screenWidth - 150 - 5;
@@ -129,7 +133,7 @@ function attackFrame() {
 
         "bjorn\\" + bjornData.attackImgs[bjornData.poseNumber];
 
-    console.log(bjornData.elem.src);
+    // console.log(bjornData.elem.src);
 
     bjornData.poseNumber = (bjornData.poseNumber + 1) % bjornData.attackImgs.length;
 
@@ -137,7 +141,32 @@ function attackFrame() {
 
         "knight\\" + knightData.attackImgs[knightData.poseNumber];
 
-    console.log(knightData.elem.src);
+    // console.log(knightData.elem.src);
 
     knightData.poseNumber = (knightData.poseNumber + 1) % knightData.attackImgs.length;
+
+    if(bjornData.poseNumber == 12 || knightData.poseNumber == 11) {
+        let roll = Math.floor(Math.random() * 2) + 1;
+        console.log(roll);
+
+        if(roll == 1) {
+            bjornData.health = bjornData.health - 10;
+        } else if(roll == 2) {
+            knightData.health = knightData.health - 10;
+        }
+
+        console.log("Bjorn Health: ", bjornData.health);
+        console.log("Knight Health: ", knightData.health);
+    }
+
+    if (bjornData.health <= 0) {
+        console.log("Knight wins!");
+        stopMoving();
+    } else if (knightData.health <= 0) {
+        console.log("Bjorn Wins!");
+        stopMoving();
+    } else if(knightData.health <= 0 && bjornData.health <= 0) {
+        console.log("Both succumbed to their wounds.");
+        stopMoving();
+    }
 }
