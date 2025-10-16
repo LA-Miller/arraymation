@@ -120,8 +120,8 @@ function attack() {
     bjornData.poseNumber = 0;
     knightData.poseNumber = 0;
 
-    bjornData.timerId = setInterval(attackFrame, 150);
-    knightData.timerId = setInterval(attackFrame, 150);   
+    bjornData.timerId = setInterval(attackFrame, 125);
+    knightData.timerId = setInterval(attackFrame, 125);   
 }
 
 function attackFrame() {
